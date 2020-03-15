@@ -1,0 +1,19 @@
+constructor
+first name, last name, age, email,major
+courses
+return back student object with first name and last name age and email.
+need appropriate getter and setter methods.
+end scope of student class.
+
+addCourse method should not allow for more than 5 course (check this in the student class to allow for flow of)
+ student1.addCourse(COPxxxx)
+ addCourse()
+ for(let i = 0; i<currentCourses.length 
+
+Scope of work for application:
+
+
+
+
+
+You will create a program that allows an individual to enter a student and the courses associated with that student into the program. You should make sure your program accepts a minimum of ten students. Each student should be able to store up to 5 courses for which the student is registered and at a minimum the student should have a field to store the selected major. The main menu should allow the user to enter a new student, enter a new course, review a student and display a list of all of the students currently stored in the program. The program should allow a user to search for a student by entering only the name of the student and/or the major of the student. If the student exists in the program the computer should return all of the information about the student. If the student does not exist, the program should return a message explaining that no such student exists.

@@ -1,0 +1,23 @@
+create new student method (passed userin to method that invokes new student)
+
+create new student method should allow for atleast 10 students 
+
+search student will opperate based on last name as per instructors video 
+we can safely assume only one family member will be in a class at a given time
+
+we can also search by major 
+searchMethodRoughDraft(major,lastName){
+if(major!==null){
+    forLoop through students
+    if(student[i].major == major){
+        print student[i]
+    }
+
+}
+if(lastName!== null){ 
+     forLoop through students
+    if(student[i].lastName == lastName){
+        print student[i]
+    }
+
+}
