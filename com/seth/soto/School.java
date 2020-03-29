@@ -1,18 +1,33 @@
 package com.seth.soto;
 
 import java.util.Scanner;
-import com.seth.soto.Student;
+// import com.seth.soto.Student; // turn this off so Doc doesnt have to fix my code as per comment on Project 1.
 import java.util.ArrayList;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class School {
 	public static void main(String[] args) {
 		int userSelect = 0;
 		ArrayList<Student> Students = new ArrayList<>();
 
+		try { // try to read the file. If the file doesnt exist no big deal we probably havent
+				// run the program before. just jump to catch block
+			FileInputStream fis = new FileInputStream("students.dat");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			Students = (ArrayList<Student>) ois.readObject();
+			ois.close();
+
+		} catch (IOException | ClassNotFoundException i) {
+			i.printStackTrace(); // print the error and continue on.
+		}
 		do {
-			// we prompt user to select monster
 			System.out.println(
-					"eStaff v1.0.1------ \n Select from the following \n 1. Search 2. New Student Entry  3. Edit Student");
+					"eStaff v1.0.1------ \n Select from the following \n 1. Search 2. New Student Entry  3. Edit Student ");
 
 			Scanner input = new Scanner(System.in);
 			userSelect = input.nextInt();
@@ -39,19 +54,20 @@ public class School {
 					}
 					if (searchMode == 3) {
 						for (Student student : Students) {
-								System.out.println("\n");
-								studentCounter++;
-								System.out.println(
-										studentCounter + ") " + student.getFirstName() + " " + student.getLastName());
-								System.out.println("Currently Enrolled the following courses: \n");
-								student.getCourses();
-							
+							System.out.println("\n");
+							studentCounter++;
+							System.out.println(
+									studentCounter + ") " + student.getFirstName() + " " + student.getLastName());
+							System.out.println("Currently Enrolled the following courses: \n");
+							student.getCourses();
+
 						}
 						foundStudents = true;
-					}					
-					
+					}
+
 					for (Student student : Students) {
-						if (student.getLastName().toUpperCase().equals(searchLastName.toUpperCase()) || student.getMajor().toUpperCase().equals(searchMajor.toUpperCase())) {
+						if (student.getLastName().toUpperCase().equals(searchLastName.toUpperCase())
+								|| student.getMajor().toUpperCase().equals(searchMajor.toUpperCase())) {
 							System.out.println("\n");
 							studentCounter++;
 							System.out.println(
@@ -61,7 +77,9 @@ public class School {
 							foundStudents = true;
 						}
 					}
-					if(!foundStudents){System.out.println("No Matches");}
+					if (!foundStudents) {
+						System.out.println("No Matches");
+					}
 				}
 				// userSelect = input.nextInt();
 			}
@@ -76,8 +94,6 @@ public class School {
 				if (Students.size() == 0) {
 					System.out.println("Major");
 					String major = inputSubMenu.nextLine();
-					// Monster werewolf = new Monster(5,3,2,"Tom","Bob");
-
 					Student newEntry = new Student(firstName, lastName, major);
 					Students.add(newEntry);
 
@@ -95,8 +111,6 @@ public class School {
 					if (!match) {
 						System.out.println("Major");
 						String major = inputSubMenu.nextLine();
-						// Monster werewolf = new Monster(5,3,2,"Tom","Bob");
-
 						Student newEntry = new Student(firstName, lastName, major);
 						Students.add(newEntry); // continue if we already havent made this student
 
@@ -112,7 +126,8 @@ public class School {
 					int studentCounter = 0;
 					for (Student student : Students) {
 						studentCounter++;
-						System.out.println(studentCounter + ") " + student.getFirstName() + student.getLastName());
+						System.out
+								.println(studentCounter + ") " + student.getFirstName() + " " + student.getLastName());
 						System.out.println("Currently Enrolled the following courses: \n");
 						student.getCourses();
 					}
@@ -129,7 +144,16 @@ public class School {
 				Students.get(selectedUser - 1).getCourses();
 
 			}
-
+			// run the save method everytime
+			try (FileOutputStream fos = new FileOutputStream("students.dat"); // try to load the file if it doesnt
+																				// exists we'll go to the catch
+					ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+				oos.writeObject(Students);
+				oos.close();
+				fos.close();
+			} catch (IOException e) { // print file didnt exsists no big deal. continue the loop
+				e.printStackTrace();
+			}
 		} while (userSelect != 0);
 	}
 

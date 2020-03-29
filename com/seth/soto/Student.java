@@ -1,8 +1,9 @@
 package com.seth.soto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Student {
+public class Student implements Serializable {
 	String firstName = ""; // known good state as per video
 	String lastName = "";
 	String major = "";
@@ -56,7 +57,8 @@ public class Student {
 				courses.add(course);
 			}
 		} else {
-			System.out.println("we appreciate your enthuasiasm but you cannot enroll in more than 4 courses \n you are already in :");
+			System.out.println(
+					"we appreciate your enthuasiasm but you cannot enroll in more than 4 courses \n you are already in :");
 		}
 	}
 
