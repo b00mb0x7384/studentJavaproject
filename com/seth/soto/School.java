@@ -14,7 +14,14 @@ public class School {
 	public static void main(String[] args) {
 		int userSelect = 0;
 		ArrayList<Student> Students = new ArrayList<>();
-
+		ArrayList<Major> Majors = new ArrayList<>();
+		// lets make some majors
+		Majors.add(new Programming());
+		Majors.get(0).createMajor(200);
+		Majors.add(new Accounting());
+		Majors.get(1).createMajor(100);
+		Majors.add(new Biology());
+		Majors.get(2).createMajor(100);
 		try { // try to read the file. If the file doesnt exist no big deal we probably havent
 				// run the program before. just jump to catch block
 			FileInputStream fis = new FileInputStream("students.dat");
@@ -27,7 +34,7 @@ public class School {
 		}
 		do {
 			System.out.println(
-					"eStaff v1.0.1------ \n Select from the following \n 1. Search 2. New Student Entry  3. Edit Student ");
+					"eStaff v1.0.1------ \n Select from the following \n 1. Search 2. New Student Entry  3. Edit Student  4.View Majors ");
 
 			Scanner input = new Scanner(System.in);
 			userSelect = input.nextInt();
@@ -92,6 +99,10 @@ public class School {
 
 				String lastName = inputSubMenu.nextLine();
 				if (Students.size() == 0) {
+					// todo when Doc says we need user input change here to prompt the user to
+					// select from available majors, spec says no user input required this project.
+					// for simplicity sake I will just be adding a list majors to teh exisisting
+					// menu
 					System.out.println("Major");
 					String major = inputSubMenu.nextLine();
 					Student newEntry = new Student(firstName, lastName, major);
@@ -144,7 +155,40 @@ public class School {
 				Students.get(selectedUser - 1).getCourses();
 
 			}
+			if (userSelect == 4) {
+				int majorCount = 0;
+				System.out.println("Majors that Exists");
+				System.out.println("number of majors" + Majors.size());
+				if (Students.size() == 0) {
+					System.out.println("NONE");
+				} else {
+					for (Major x : Majors) {
+						majorCount++;
+						System.out.println(x);
+					}
+					int result = Majors.get(0).compareTo(Majors.get(1));
+
+					if (result == -1) {
+						System.out.println("Major Track " + Majors.get(0).getTrack() + "  Has Less Courses than "
+								+ Majors.get(1).getTrack());
+					}
+					if (result == 0) {
+						System.out.println("Major Track " + Majors.get(0).getTrack() + " Has Same Courses than "
+								+ Majors.get(1).getTrack());
+					}
+					if (result == 1) {
+						System.out.println("Major Track " + Majors.get(0).getTrack() + "  Has More Courses than "
+								+ Majors.get(1).getTrack());
+					}
+					System.out.println(
+							"A message from the programming advocate: " + ((Programming) Majors.get(0)).plusICanCode());
+					System.out.println(
+							"A message from the accounting advocate: " + ((Accounting) Majors.get(1)).crunchNumbers());
+					System.out.println("a scientific voice says: " + ((Biology) Majors.get(2)).flex());
+				}
+			}
 			// run the save method everytime
+
 			try (FileOutputStream fos = new FileOutputStream("students.dat"); // try to load the file if it doesnt
 																				// exists we'll go to the catch
 					ObjectOutputStream oos = new ObjectOutputStream(fos)) {
