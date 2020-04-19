@@ -6,12 +6,12 @@ import java.util.ArrayList;
 public class Student implements Serializable {
 	String firstName = ""; // known good state as per video
 	String lastName = "";
-	String major = "";
+	Major major;
 	ArrayList<String> courses = new ArrayList<>();
 	// TODO: String email = ""
 	// TODO: Double INT = this.calcGPA();
 
-	public Student(String firstName, String lastName, String major) {
+	public Student(String firstName, String lastName, Major major) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.major = major;
@@ -38,11 +38,11 @@ public class Student implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public String getMajor() {
+	public Major getMajor() {
 		return major;
 	}
 
-	public void setMajor(String major) {
+	public void setMajor(Major major) {
 		this.major = major;
 	}
 

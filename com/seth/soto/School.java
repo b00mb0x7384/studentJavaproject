@@ -74,7 +74,7 @@ public class School {
 
 					for (Student student : Students) {
 						if (student.getLastName().toUpperCase().equals(searchLastName.toUpperCase())
-								|| student.getMajor().toUpperCase().equals(searchMajor.toUpperCase())) {
+								|| student.getMajor().getTrack().toUpperCase().equals(searchMajor.toUpperCase())) {
 							System.out.println("\n");
 							studentCounter++;
 							System.out.println(
@@ -103,9 +103,11 @@ public class School {
 					// select from available majors, spec says no user input required this project.
 					// for simplicity sake I will just be adding a list majors to teh exisisting
 					// menu
+					// TODO: Check this line and make it behave as the same as if tthere were
+					// students in teh dat file
 					System.out.println("Major");
-					String major = inputSubMenu.nextLine();
-					Student newEntry = new Student(firstName, lastName, major);
+					int major = inputSubMenu.nextInt();
+					Student newEntry = new Student(firstName, lastName, Majors.get(major));
 					Students.add(newEntry);
 
 				} else {
@@ -120,9 +122,18 @@ public class School {
 						}
 					}
 					if (!match) {
-						System.out.println("Major");
-						String major = inputSubMenu.nextLine();
-						Student newEntry = new Student(firstName, lastName, major);
+						System.out.println("Majors Available");
+						int majorCount = 0;
+						for (Major x : Majors) {
+
+							System.out.println(majorCount + " " + x);
+
+							majorCount++;
+
+						}
+						System.out.println("Select student major");
+						int major = inputSubMenu.nextInt();
+						Student newEntry = new Student(firstName, lastName, Majors.get(major));
 						Students.add(newEntry); // continue if we already havent made this student
 
 					}
