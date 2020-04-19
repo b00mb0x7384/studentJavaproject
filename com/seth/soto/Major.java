@@ -1,6 +1,8 @@
 package com.seth.soto;
 
-public abstract class Major implements Comparable<Major> {
+import java.io.Serializable;
+
+public abstract class Major implements Comparable<Major>, Serializable {
     // instance variables - replace the example below with your own
     private int creditsRequired;
     private String track;

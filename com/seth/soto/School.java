@@ -21,7 +21,12 @@ public class School {
 		Majors.add(new Accounting());
 		Majors.get(1).createMajor(100);
 		Majors.add(new Biology());
-		Majors.get(2).createMajor(100);
+		Majors.get(2).createMajor(200);
+		Majors.add(new Medical());
+		Majors.get(3).createMajor(300);
+		Majors.add(new Welding());
+		Majors.get(4).createMajor(100);
+
 		try { // try to read the file. If the file doesnt exist no big deal we probably havent
 				// run the program before. just jump to catch block
 			FileInputStream fis = new FileInputStream("students.dat");
@@ -65,6 +70,8 @@ public class School {
 							studentCounter++;
 							System.out.println(
 									studentCounter + ") " + student.getFirstName() + " " + student.getLastName());
+							System.out.println("Student is part of major: " + student.getMajor().getTrack());
+							System.out.println("Majors credits required: " + student.getMajor().getCreditsRequired());
 							System.out.println("Currently Enrolled the following courses: \n");
 							student.getCourses();
 
@@ -79,8 +86,11 @@ public class School {
 							studentCounter++;
 							System.out.println(
 									studentCounter + ") " + student.getFirstName() + " " + student.getLastName());
+							System.out.println("Student is part of major: " + student.getMajor().getTrack());
+							System.out.println("Majors credits required: " + student.getMajor().getCreditsRequired());
 							System.out.println("Currently Enrolled the following courses: \n");
 							student.getCourses();
+
 							foundStudents = true;
 						}
 					}
@@ -105,7 +115,17 @@ public class School {
 					// menu
 					// TODO: Check this line and make it behave as the same as if tthere were
 					// students in teh dat file
-					System.out.println("Major");
+
+					System.out.println("Majors Available");
+					int majorCount = 0;
+					for (Major x : Majors) {
+
+						System.out.println(majorCount + " " + x);
+
+						majorCount++;
+
+					}
+
 					int major = inputSubMenu.nextInt();
 					Student newEntry = new Student(firstName, lastName, Majors.get(major));
 					Students.add(newEntry);
@@ -150,6 +170,8 @@ public class School {
 						studentCounter++;
 						System.out
 								.println(studentCounter + ") " + student.getFirstName() + " " + student.getLastName());
+						System.out.println("Student is part of major: " + student.getMajor().getTrack());
+						System.out.println("Majors credits required: " + student.getMajor().getCreditsRequired());
 						System.out.println("Currently Enrolled the following courses: \n");
 						student.getCourses();
 					}
@@ -157,19 +179,29 @@ public class School {
 
 				System.out.println("Which Student would you like to edit (Number Next to Name)");
 				int selectedUser = inputSubMenu.nextInt();
+
 				System.out.println("Enter Course to Enroll " + Students.get(selectedUser - 1).getFirstName());
 				Scanner courseToAddScanner = new Scanner(System.in);
-				String courseToEnroll = courseToAddScanner.nextLine();
+				System.out.println("Course Number:");
+				String CourseNumber = courseToAddScanner.nextLine();
+				System.out.println("Course Name:");
+
+				String CourseName = courseToAddScanner.nextLine();
+				System.out.println("Course Desc:");
+
+				String CourseDesc = courseToAddScanner.nextLine();
+
+				Course tempCourse = new Course(CourseNumber, CourseName, CourseDesc);
 
 				System.out.println("Adding student to course");
-				Students.get(selectedUser - 1).addCourse(courseToEnroll);
+				Students.get(selectedUser - 1).addCourse(tempCourse);
 				Students.get(selectedUser - 1).getCourses();
 
 			}
 			if (userSelect == 4) {
 				int majorCount = 0;
 				System.out.println("Majors that Exists");
-				System.out.println("number of majors" + Majors.size());
+				System.out.println("number of majors " + Majors.size());
 				if (Students.size() == 0) {
 					System.out.println("NONE");
 				} else {

@@ -7,7 +7,7 @@ public class Student implements Serializable {
 	String firstName = ""; // known good state as per video
 	String lastName = "";
 	Major major;
-	ArrayList<String> courses = new ArrayList<>();
+	ArrayList<Course> courses = new ArrayList<>();
 	// TODO: String email = ""
 	// TODO: Double INT = this.calcGPA();
 
@@ -46,7 +46,7 @@ public class Student implements Serializable {
 		this.major = major;
 	}
 
-	public void addCourse(String course) {
+	public void addCourse(Course course) {
 		System.out.println("Currently enrolled in" + courses.size());
 		if (courses.size() < 4) {
 
@@ -66,8 +66,9 @@ public class Student implements Serializable {
 		if (courses.size() == 0) {
 			System.out.println("NONE");
 		} else {
-			for (String course : courses) {
-				System.out.println(course);
+			for (Course course : courses) {
+				System.out.println("Course Number: " + course.courseNumber + " Course Name: " + course.courseName
+						+ " Course Desc: " + course.description);
 			}
 		}
 	}
